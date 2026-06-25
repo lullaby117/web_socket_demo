@@ -16,9 +16,16 @@ import java.time.format.DateTimeFormatter;
 @Controller
 public class ChatController {
 
-    // 注入消息发送模板（用于点对点消息）
-    @Autowired
-    private SimpMessagingTemplate messagingTemplate;
+    private final SimpMessagingTemplate messagingTemplate;
+
+    /**
+     * ✅ 构造器注入（推荐方式）
+     * - 不需要写@Autowired（Spring 4.3+ 单构造器自动注入）
+     * - 参数由Spring容器自动提供
+     */
+    public ChatController(SimpMessagingTemplate messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
+    }
 
     /**
      * 群聊消息处理
